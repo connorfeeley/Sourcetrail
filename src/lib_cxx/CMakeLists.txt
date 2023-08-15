@@ -144,7 +144,7 @@ target_link_libraries(
     Sourcetrail::scheduling
     ${REQ_LLVM_LIBS}
     ${CLANG_LIBRARIES}
-    TinyXML::TinyXML
+    ${TINYXML_LIBRARIES}
     Qt5::Core)
 
 if(WIN32)

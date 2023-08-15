@@ -53,7 +53,7 @@ include(FetchContent)
 FetchContent_Declare(
   _project_options
   DOWNLOAD_EXTRACT_TIMESTAMP TRUE
-  URL "https://github.com/aminya/project_options/archive/refs/tags/v0.26.3.zip")
+  SOURCE_DIR @project_options@)
 FetchContent_MakeAvailable(_project_options)
 include(${_project_options_SOURCE_DIR}/Index.cmake)
 # Variables --------------------------------------------------------------------
@@ -95,7 +95,7 @@ if(ENABLE_COVERAGE)
 endif()
 
 project_options(
-  ENABLE_CONAN
+  DISABLE_CONAN
   # CONAN_OPTIONS    # Extra options to pass to conan
   # MSVC_WARNINGS    # Override the defaults for the MSVC warnings
   # CLANG_WARNINGS   # Override the defaults for the CLANG warnings
@@ -127,9 +127,10 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # Settings ---------------------------------------------------------------------
-find_package(SQLite3 CONFIG REQUIRED)
-find_package(TinyXML CONFIG REQUIRED)
-find_package(fmt     CONFIG REQUIRED)
+find_package(PkgConfig    REQUIRED)
+pkg_check_modules(SQLITE  REQUIRED sqlite3)
+pkg_check_modules(TINYXML REQUIRED tinyxml)
+find_package(fmt   CONFIG REQUIRED)
 # Boost ------------------------------------------------------------------------
 set(Boost_USE_MULTITHREAD ON)
 set(Boost_USE_STATIC_LIBS ON CACHE BOOL "Set to ON to force the use of the static libraries.")
@@ -224,8 +225,8 @@ target_link_libraries(
     Boost::filesystem
     Boost::program_options
     Boost::system
-    SQLite::SQLite3
-    TinyXML::TinyXML
+    ${SQLITE_LIBRARIES}
+    ${TINYXML_LIBRARIES}
     fmt::fmt
     $<$<PLATFORM_ID:Windows>:bcrypt>)
 

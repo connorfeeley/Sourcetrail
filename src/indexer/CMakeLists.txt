@@ -44,7 +44,8 @@ target_link_libraries(
     Qt5::Core
     Sourcetrail::core
     Sourcetrail::lib
-    Sourcetrail::lib_gui)
+    Sourcetrail::lib_gui
+    ${SQLITE_LIBRARIES})
 
 if(APPLE)
   find_library(CORE_FOUNDATION CoreFoundation)

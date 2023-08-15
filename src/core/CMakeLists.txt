@@ -54,7 +54,7 @@ target_link_libraries(
   PRIVATE
     Boost::filesystem
     Sourcetrail::lib_utility
-    TinyXML::TinyXML
+    ${TINYXML_LIBRARIES}
     fmt::fmt)
 
 # $<$<PLATFORM_ID:Windows>:bcrypt>
