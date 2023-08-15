@@ -335,6 +335,52 @@ set_property(SOURCE ${CMAKE_BINARY_DIR}/src/lib_gui/productVersion.h
 add_subdirectory(src/indexer)
 # App --------------------------------------------------------------------------
 add_subdirectory(src/app)
+# macOS Bundle ----------------------------------------------------------------
+if(APPLE)
+  set(MACOS_BUNDLE_NAME ${PROJECT_NAME})
+  set(MACOS_BUNDLE_VERSION ${VERSION_STRING})
+  set(MACOS_BINARY_NAME ${APP_PROJECT_NAME})
+  set(MACOS_INDEXER_BINARY_NAME ${APP_INDEXER_NAME})
+  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/app/")
+
+  get_property(QT_CORE_PATH TARGET ${Qt5Core_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_CORE_PATH ${QT_CORE_PATH} REALPATH)
+
+  get_property(QT_GUI_PATH TARGET ${Qt5Gui_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_GUI_PATH ${QT_GUI_PATH} REALPATH)
+
+  get_property(QT_WIDGETS_PATH TARGET ${Qt5Widgets_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_WIDGETS_PATH ${QT_WIDGETS_PATH} REALPATH)
+
+  get_property(QT_PRINT_PATH TARGET ${Qt5PrintSupport_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_PRINT_PATH ${QT_PRINT_PATH} REALPATH)
+
+  get_property(QT_NETWORK_PATH TARGET ${Qt5Network_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_NETWORK_PATH ${QT_NETWORK_PATH} REALPATH)
+
+  get_property(QT_SVG_PATH TARGET ${Qt5Svg_LIBRARIES} PROPERTY LOCATION)
+  get_filename_component(QT_SVG_PATH ${QT_SVG_PATH} REALPATH)
+
+  list(APPEND MACOS_QT_FRAMEWORKS ${QT_CORE_PATH} ${QT_GUI_PATH} ${QT_WIDGETS_PATH} ${QT_PRINT_PATH} ${QT_NETWORK_PATH} ${QT_SVG_PATH})
+  string(REPLACE ";" " " MACOS_QT_FRAMEWORKS "${MACOS_QT_FRAMEWORKS}")
+
+  set(MACOS_BOOST_DIR "${Boost_INCLUDE_DIR}")
+  STRING(REGEX REPLACE "/lib/cmake/clang" "" MACOS_CLANG_DIR "${Clang_DIR}")
+  STRING(REGEX REPLACE "/lib/cmake/Qt5" "" MACOS_QT_DIR "${Qt5_DIR}")
+
+  message("Setup Files: @setupFiles@")
+  configure_file(
+    @setupFiles@/macOS/bundle_install.sh.in
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/bundle_install.sh
+    @ONLY
+  )
+
+  configure_file(
+    @setupFiles@/macOS/bundle_info.plist.in
+    ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/bundle_info.plist
+    @ONLY
+  )
+endif ()
 # Tests ------------------------------------------------------------------------
 if(ENABLE_UNIT_TEST OR ENABLE_INTEGRATION_TEST OR ENABLE_E2E_TEST)
   if(WIN32)
