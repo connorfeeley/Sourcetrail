@@ -75,7 +75,7 @@ QtKeyboardShortcuts::Shortcut::Shortcut(const QString& name, const QString& shor
 
 QtKeyboardShortcuts::Shortcut QtKeyboardShortcuts::Shortcut::defaultOrMac(const QString& name,
                                                                           const QString& defaultShortcut,
-                                                                          const QString& /*macShortcut*/) {
+                                                                          const QString& macShortcut) {
 #if defined(Q_OS_MAC)
   return {name, macShortcut};
 #else

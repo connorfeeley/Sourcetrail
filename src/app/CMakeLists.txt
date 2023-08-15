@@ -1,6 +1,11 @@
 #${CMAKE_SOURCE_DIR}/src/app/CMakeLists.txt
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/app/")
 
+# add platform specific libraries
+if(APPLE)
+  find_library(CORE_FOUNDATION CoreFoundation)
+endif ()
+
 if(WIN32)
   file(WRITE ${CMAKE_BINARY_DIR}/Sourcetrail.rc
     "// Icon with lowest ID value placed first to ensure application icon\n"
@@ -49,7 +54,8 @@ target_link_libraries(
     $<$<BOOL:${BUILD_CXX_LANGUAGE_PACKAGE}>:Sourcetrail::lib_cxx>
     Boost::locale
     Qt5::Widgets
-    Qt5::Network)
+    Qt5::Network
+    $<$<BOOL:${APPLE}>:${CORE_FOUNDATION}>)
 
 target_include_directories(
   Sourcetrail
@@ -68,11 +74,6 @@ set_target_properties(
   Sourcetrail
   PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/app/")
-    # add platform specific libraries
-if(APPLE)
-  find_library(CORE_FOUNDATION CoreFoundation)
-  target_link_libraries(Sourcetrail ${CORE_FOUNDATION})
-endif ()
 
 add_dependencies(Sourcetrail Sourcetrail_indexer)
 
