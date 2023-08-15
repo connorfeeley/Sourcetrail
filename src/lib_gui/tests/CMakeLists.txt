@@ -13,7 +13,7 @@ foreach(test_name IN LISTS test_lib_gui_names)
     ${test_name}
     PUBLIC
       testHelper
-      catch2::catch2
+      Catch2::Catch2WithMain
       trompeloeil::trompeloeil
       Sourcetrail::lib
       Sourcetrail::lib_gui

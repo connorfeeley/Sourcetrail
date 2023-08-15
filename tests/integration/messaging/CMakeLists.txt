@@ -10,7 +10,7 @@ foreach(test_name IN LISTS test_lib_names)
   target_link_libraries(
     ${test_name}
     PUBLIC
-      catch2::catch2
+      Catch2::Catch2WithMain
       Sourcetrail::messaging)
 
   set_target_properties(

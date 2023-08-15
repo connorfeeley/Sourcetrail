@@ -1,6 +1,6 @@
 # ${CMAKE_SOURCE_DIR}/src/test/CMakeLists.txt
 add_library(catch_main OBJECT test_main.cpp)
-target_link_libraries(catch_main PUBLIC catch2::catch2 Sourcetrail::core)
+target_link_libraries(catch_main PUBLIC Catch2::Catch2WithMain Sourcetrail::core)
 target_include_directories(
   catch_main
   PUBLIC
@@ -51,7 +51,7 @@ foreach(test_name IN LISTS test_lib_names)
     ${test_name}
     PUBLIC
       testHelper
-      catch2::catch2
+      Catch2::Catch2WithMain
       Sourcetrail::lib
       Sourcetrail::lib_gui
       $<$<BOOL:${BUILD_CXX_LANGUAGE_PACKAGE}>:Sourcetrail::lib_cxx>)
@@ -119,7 +119,7 @@ foreach(test_name IN LISTS test_core_names)
     ${test_name}
     PUBLIC
       testHelper
-      catch2::catch2
+      Catch2::Catch2WithMain
       Sourcetrail::core)
 
   # automatically discover ${test_name} that are defined in catch based test files you can modify the unittests. Set TEST_PREFIX
