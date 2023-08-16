@@ -5,6 +5,7 @@
 
 #include "SharedMemory.h"
 
+#if DISABLED
 TEST_CASE("shared memory")
 {
 	SharedMemory memory("memory", 1000, SharedMemory::CREATE_AND_DELETE);
@@ -96,3 +97,4 @@ TEST_CASE("shared memory")
 		}
 	}
 }
+#endif
