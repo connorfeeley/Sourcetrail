@@ -3,6 +3,7 @@
 #include <map>
 #include <memory>
 #include <set>
+#include <vector>
 // internal
 #include "Storage.h"
 
