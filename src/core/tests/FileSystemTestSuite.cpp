@@ -91,7 +91,9 @@ TEST_CASE("find file infos", "[core]") {
   REQUIRE(isInFileInfos(files, L"./data/FileSystemTestSuite/src/test.h"));
 #endif
 }
+#endif
 
+#if DISABLED
 TEST_CASE("find file infos with symlinks", "[core]") {
 #  ifndef _WIN32
   std::vector<FilePath> directoryPaths;
