@@ -15,7 +15,7 @@ struct ResourcePathsFix : public testing::Test {
 };
 
 TEST_F(ResourcePathsFix, goodCase) {
-  const auto tempDir = fs::path{fs::temp_directory_path(), fs::path::path::generic_format};
+  const auto tempDir = fs::path{fs::temp_directory_path(), fs::path::path::format::generic_format};
   ASSERT_EQ(tempDir / "data/color_schemes/", ResourcePaths::getColorSchemesDirectoryPath().str());
   ASSERT_EQ(tempDir / "data/syntax_highlighting_rules/",
             ResourcePaths::getSyntaxHighlightingRulesDirectoryPath().str());

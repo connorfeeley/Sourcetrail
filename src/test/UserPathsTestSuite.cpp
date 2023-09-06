@@ -8,7 +8,7 @@
 namespace fs = std::filesystem;
 
 TEST(UserPaths, goodCase) {
-  const auto tempDir = fs::path{fs::temp_directory_path(), fs::path::path::generic_format};
+  const auto tempDir = fs::path{fs::temp_directory_path(), fs::path::path::format::generic_format};
   EXPECT_TRUE(UserPaths::getUserDataDirectoryPath().empty());
   UserPaths::setUserDataDirectoryPath(FilePath{tempDir});
   EXPECT_EQ(tempDir, UserPaths::getUserDataDirectoryPath().str());
